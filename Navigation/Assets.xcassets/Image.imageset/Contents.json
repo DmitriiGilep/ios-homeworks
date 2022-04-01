@@ -5,12 +5,23 @@
       "scale" : "1x"
     },
     {
-      "filename" : "фото (2).jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "scale" : "3x"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "iphone",
       "scale" : "3x"
     }
   ],
