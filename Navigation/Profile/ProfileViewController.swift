@@ -16,7 +16,7 @@ class ProfileViewController: UIViewController {
         
 
     }
-    
+
     override func viewWillLayoutSubviews() {
         let profileHeaderView = ProfileHeaderView()
             // приравнял фрэймы сабвью и супервью
@@ -36,6 +36,7 @@ class ProfileViewController: UIViewController {
         
     }
     
+   
     
 
 }

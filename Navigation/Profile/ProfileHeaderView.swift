@@ -17,17 +17,18 @@ class ProfileHeaderView: UIView {
     let statusButton = UIButton(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
     let textStatusModified = UITextField(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
     let statusTextChangedButton = UIButton(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
-
+    
     
     //функция по выводу subviews
     override func layoutSubviews() {
-      super.layoutSubviews()
+        super.layoutSubviews()
         setProfileImageView()
         setProfileName()
         setTextStatus()
-      //  setStatusButton()
+        //  setStatusButton()
         setTextStatusModified()
         setStatusTextChangedButton()
+        
     }
 
     //функция установки фото профиля
@@ -137,6 +138,8 @@ class ProfileHeaderView: UIView {
         statusTextChangedButton.addTarget(self, action: #selector(pressSetButton), for: .touchUpInside)
         statusTextChangedButton.layer.cornerRadius = 4
         addSubview(statusTextChangedButton)
+        statusTextChangedButton.translatesAutoresizingMaskIntoConstraints = false
+        
     }
     
     @objc func pressSetButton (_ textField: UITextField) {
