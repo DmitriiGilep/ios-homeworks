@@ -17,20 +17,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XJJ-4N-3EZ">
-                                <rect key="frame" x="93" y="316.5" width="228" height="308"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="228" id="4PK-4S-Ird"/>
-                                    <constraint firstAttribute="height" priority="250" constant="312" id="UyC-nz-YNF"/>
-                                </constraints>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="XJJ-4N-3EZ">
+                                <rect key="frame" x="108" y="304" width="204" height="245"/>
                                 <imageReference key="image" image="pencil" catalog="system" symbolScale="medium"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="XJJ-4N-3EZ" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="XLB-r2-Cmg"/>
-                            <constraint firstItem="XJJ-4N-3EZ" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="lPx-Eo-4zv"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="XJJ-4N-3EZ" secondAttribute="bottom" constant="311" id="5ai-sJ-gLm"/>
+                            <constraint firstItem="XJJ-4N-3EZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="108" id="Emb-6h-oAV"/>
+                            <constraint firstItem="XJJ-4N-3EZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="257.5" id="LUi-vY-MvE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="XJJ-4N-3EZ" secondAttribute="trailing" constant="102" id="oPg-kT-o9a"/>
                         </constraints>
                     </view>
                 </viewController>

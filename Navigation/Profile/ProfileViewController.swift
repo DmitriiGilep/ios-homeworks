@@ -9,34 +9,26 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    let profileHeaderView = ProfileHeaderView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightGray
         title = "Profile"
-        
-
-    }
-
-    override func viewWillLayoutSubviews() {
-        let profileHeaderView = ProfileHeaderView()
-            // приравнял фрэймы сабвью и супервью
-        profileHeaderView.frame = self.view.frame
-        profileHeaderView.backgroundColor = .clear
+        profileHeaderView.backgroundColor = .green
         profileHeaderView.layer.borderColor = UIColor.red.cgColor
-        view.addSubview(profileHeaderView)
-        
-        
-//        [
-//            profileHeaderView.statusButton.leadingAnchor.constraint(equalTo: profileHeaderView.leadingAnchor, constant: 16),
-//            profileHeaderView.statusButton.topAnchor.constraint(equalTo: profileHeaderView.profileImageView.bottomAnchor, constant: 16),
-//            profileHeaderView.statusButton.trailingAnchor.constraint(equalTo: profileHeaderView.trailingAnchor, constant: -16),
-//            profileHeaderView.statusButton.heightAnchor.constraint(equalToConstant: 50)
-//        ]
-//            .forEach{$0.isActive = true}
+
+        self.view.addSubview(profileHeaderView)
+        profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
+        [
+            profileHeaderView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+            profileHeaderView.trailingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+            profileHeaderView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            profileHeaderView.heightAnchor.constraint(equalToConstant: 220)
+        ]
+            .forEach({$0.isActive = true})
         
     }
     
-   
-    
-
 }
+
