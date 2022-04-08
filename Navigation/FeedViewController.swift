@@ -15,15 +15,33 @@ class FeedViewController: UIViewController {
         title = "FeedView"
         view.backgroundColor = .darkGray
         
-        // создал кнопку на контроллере для перехода на postViewController и сам переход
-        let button = UIButton(frame: CGRect(x: 250, y: 170, width: 130, height: 50))
-        button.setTitle("Кнопка", for: .normal)
-        button.backgroundColor = .blue
-        view.addSubview(button)
-        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
+        // кнопка 1 для перехода на postViewController и сам переход
+        
+        let button1 = UIButton()
+        button1.setTitle("Кнопка1", for: .normal)
+        button1.backgroundColor = .blue
+        view.addSubview(button1)
+        button1.addTarget(self, action: #selector(tapPostView), for: .touchUpInside)
+        
+        // кнопка 2 для перехода на postViewController и сам переход
+        let button2 = UIButton()
+        button2.setTitle("Кнопка1", for: .normal)
+        button2.backgroundColor = .blue
+        view.addSubview(button2)
+        button2.addTarget(self, action: #selector(tapPostView), for: .touchUpInside)
+        
+        let buttonsForPost = UIStackView()
+        buttonsForPost.axis = .vertical
+        buttonsForPost.spacing = 10
+        buttonsForPost.addArrangedSubview(button1)
+        buttonsForPost.addArrangedSubview(button2)
+        buttonsForPost.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(buttonsForPost)
+        buttonsForPost.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        buttonsForPost.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     let postViewController = PostViewController()
-    @objc func tap () {
+    @objc func tapPostView () {
         navigationController?.pushViewController(postViewController, animated: true)
     }
     
