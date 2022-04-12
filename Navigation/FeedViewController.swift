@@ -16,7 +16,6 @@ class FeedViewController: UIViewController {
         view.backgroundColor = .darkGray
         
         // кнопка 1 для перехода на postViewController и сам переход
-        
         let button1 = UIButton()
         button1.setTitle("Кнопка1", for: .normal)
         button1.backgroundColor = .blue
@@ -25,20 +24,28 @@ class FeedViewController: UIViewController {
         
         // кнопка 2 для перехода на postViewController и сам переход
         let button2 = UIButton()
-        button2.setTitle("Кнопка1", for: .normal)
+        button2.setTitle("Кнопка2", for: .normal)
         button2.backgroundColor = .blue
         view.addSubview(button2)
         button2.addTarget(self, action: #selector(tapPostView), for: .touchUpInside)
         
+                
         let buttonsForPost = UIStackView()
         buttonsForPost.axis = .vertical
         buttonsForPost.spacing = 10
         buttonsForPost.addArrangedSubview(button1)
         buttonsForPost.addArrangedSubview(button2)
         buttonsForPost.translatesAutoresizingMaskIntoConstraints = false
+        buttonsForPost.distribution = .fillEqually
         view.addSubview(buttonsForPost)
-        buttonsForPost.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        buttonsForPost.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        [
+            buttonsForPost.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonsForPost.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            buttonsForPost.widthAnchor.constraint(equalToConstant: 300),
+            buttonsForPost.heightAnchor.constraint(equalToConstant: 150)
+        ]
+            .forEach({$0.isActive = true})
+        
     }
     let postViewController = PostViewController()
     @objc func tapPostView () {
@@ -50,6 +57,9 @@ class FeedViewController: UIViewController {
     }
     
     var post = Post(title: "Пост")
+    
+    
+    
     
 }
     
