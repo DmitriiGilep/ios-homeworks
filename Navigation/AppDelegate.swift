@@ -33,10 +33,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // nav stacks
         firstNavController.viewControllers = [feedViewController]
         
-        secondNavContoller.viewControllers = [profileViewController, loginViewController]
+        secondNavContoller.viewControllers = [loginViewController]
         secondNavContoller.navigationBar.isHidden = true
+        
+
         // tabbar stack c navControllers = панель внизу
         tabBarController.viewControllers = [firstNavController, secondNavContoller]
+        
 
         //создал экземпляр иконки таббара и присвоил им имена и картинки, затем присвоил таббарайтему навконтролера эти экземпляры
         let tabBar1 = UITabBarItem()
@@ -47,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let image2 = UIImage(systemName: "person.fill")
         tabBar1.image = image1
         tabBar2.image = image2
+        
         firstNavController.tabBarItem = tabBar1
         secondNavContoller.tabBarItem = tabBar2
         

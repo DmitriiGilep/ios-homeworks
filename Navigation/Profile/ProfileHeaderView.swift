@@ -66,7 +66,8 @@ class ProfileHeaderView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.setSubViews()
+        self.addSubViews()
+        self.addConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -89,53 +90,43 @@ class ProfileHeaderView: UIView {
         statusLabel.text = statusText
     }
     
-    func setSubViews() {
+    func addSubViews() {
         
         self.addSubview(avatarImageView)
-        [
-            avatarImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            avatarImageView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
-            avatarImageView.widthAnchor.constraint(equalToConstant: 110),
-            avatarImageView.heightAnchor.constraint(equalToConstant: 110)
-        ]
-            .forEach{$0.isActive = true}
-        
         self.addSubview(fullNameLabel)
-        [
+        self.addSubview(setStatusButton)
+        self.addSubview(statusLabel)
+        self.addSubview(statusTextField)
+    }
+    
+    func addConstraints() {
+        NSLayoutConstraint.activate([
+            
+            avatarImageView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
+            avatarImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 110),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 110),
+            
             fullNameLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 27),
-            fullNameLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             fullNameLabel.leadingAnchor.constraint(equalTo: self.avatarImageView.trailingAnchor, constant: 10),
             fullNameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            fullNameLabel.heightAnchor.constraint(equalToConstant: 50)
-        ]
-            .forEach({$0.isActive = true})
-        
-        self.addSubview(setStatusButton)
-        [
+            fullNameLabel.heightAnchor.constraint(equalToConstant: 50),
+            
             setStatusButton.topAnchor.constraint(equalTo: self.avatarImageView.bottomAnchor, constant: 46),
             setStatusButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            setStatusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16)
-        ]
-            .forEach({$0.isActive = true})
-        
-        self.addSubview(statusLabel)
-        [
+            setStatusButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            setStatusButton.heightAnchor.constraint(equalToConstant: 40),
+            
             statusLabel.leadingAnchor.constraint(equalTo: self.avatarImageView.trailingAnchor, constant: 10),
             statusLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             statusLabel.heightAnchor.constraint(equalToConstant: 20),
-            statusLabel.bottomAnchor.constraint(equalTo: self.setStatusButton.topAnchor, constant: -74)
-        ]
-            .forEach({$0.isActive = true})
-        
-        self.addSubview(statusTextField)
-        [
+            statusLabel.bottomAnchor.constraint(equalTo: self.setStatusButton.topAnchor, constant: -74),
+            
             statusTextField.topAnchor.constraint(equalTo: self.statusLabel.bottomAnchor, constant: 5),
             statusTextField.leadingAnchor.constraint(equalTo: self.avatarImageView.trailingAnchor, constant: 10),
             statusTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             statusTextField.heightAnchor.constraint(equalToConstant: 40)
-        ]
-            .forEach({$0.isActive = true})
-        
+        ])
     }
 }
 
