@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // создал экземляры 2 viewControllers
         let feedViewController = FeedViewController()
         let profileViewController = ProfileViewController()
+        let loginViewController = LogInViewController()
         
         
         // создал экземпляр tabBarControllers - панель внизу
@@ -32,11 +33,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // nav stacks
         firstNavController.viewControllers = [feedViewController]
         
-        secondNavContoller.viewControllers = [profileViewController]
-        
+        secondNavContoller.viewControllers = [profileViewController, loginViewController]
+        secondNavContoller.navigationBar.isHidden = true
         // tabbar stack c navControllers = панель внизу
         tabBarController.viewControllers = [firstNavController, secondNavContoller]
-
 
         //создал экземпляр иконки таббара и присвоил им имена и картинки, затем присвоил таббарайтему навконтролера эти экземпляры
         let tabBar1 = UITabBarItem()

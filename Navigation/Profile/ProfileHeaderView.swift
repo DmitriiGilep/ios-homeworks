@@ -54,6 +54,25 @@ class ProfileHeaderView: UIView {
     
     private var statusText: String = ""
     
+    let setStatusButton: UIButton = {
+        let setStatus = UIButton()
+        setStatus.setTitle("Set status", for: .normal)
+        setStatus.backgroundColor = .blue
+        setStatus.addTarget(self, action: #selector(pressSetButton), for: .touchUpInside)
+        setStatus.layer.cornerRadius = 4
+        setStatus.translatesAutoresizingMaskIntoConstraints = false
+        return setStatus
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setSubViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     @objc func statusTextChanged(_ textField: UITextField) {
         
         statusTextField.textColor = UIColor.black
@@ -66,27 +85,8 @@ class ProfileHeaderView: UIView {
         return
     }
     
-    let setStatusButton: UIButton = {
-        let setStatus = UIButton()
-        setStatus.setTitle("Set status", for: .normal)
-        setStatus.backgroundColor = .blue
-        setStatus.addTarget(self, action: #selector(pressSetButton), for: .touchUpInside)
-        setStatus.layer.cornerRadius = 4
-        setStatus.translatesAutoresizingMaskIntoConstraints = false
-        return setStatus
-    }()
-    
     @objc func pressSetButton (_ textField: UITextField) {
         statusLabel.text = statusText
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setSubViews()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func setSubViews() {
@@ -137,7 +137,5 @@ class ProfileHeaderView: UIView {
             .forEach({$0.isActive = true})
         
     }
-    
-    
 }
 
