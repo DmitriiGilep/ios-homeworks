@@ -9,6 +9,17 @@ import UIKit
 
 class PostTableViewCell: UITableViewCell {
    
+    var post: PostProtocol? {
+        didSet {
+            authorLabel.text = post?.author
+            postImage.image = UIImage(named: "\(post?.image ?? "1")")
+            descriprionLabel.text = post?.description
+            likesLabel.text = "Likes: \(post?.likes ?? 0)"
+            viewsLabel.text = "Views: \(post?.views ?? 0)"
+        }
+    }
+    
+    
     let authorLabel: UILabel = {
         let author = UILabel()
         author.font = UIFont.systemFont(ofSize: 16, weight: .bold)
@@ -65,22 +76,22 @@ class PostTableViewCell: UITableViewCell {
             [
                 self.authorLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
                 self.authorLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
-                self.authorLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
+                self.authorLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
                 self.authorLabel.bottomAnchor.constraint(equalTo: self.postImage.topAnchor, constant: -5),
 
                 self.postImage.leadingAnchor.constraint(equalTo: self.leadingAnchor),
                 self.postImage.trailingAnchor.constraint(equalTo: self.trailingAnchor),
                 self.postImage.topAnchor.constraint(equalTo: self.authorLabel.bottomAnchor, constant: 5),
-                self.postImage.bottomAnchor.constraint(equalTo: self.descriprionLabel.topAnchor, constant: -5),
+                //self.postImage.bottomAnchor.constraint(equalTo: self.descriprionLabel.topAnchor, constant: -5),
                 self.postImage.heightAnchor.constraint(equalToConstant: 200),
                 
                 self.descriprionLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
-                self.descriprionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 5),
+                self.descriprionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
                 self.descriprionLabel.topAnchor.constraint(equalTo: postImage.bottomAnchor, constant: 5),
                 self.descriprionLabel.bottomAnchor.constraint(equalTo: self.likesLabel.topAnchor, constant: -5),
                 
                 self.likesLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
-                self.likesLabel.topAnchor.constraint(equalTo: self.descriprionLabel.bottomAnchor, constant: -5),
+                self.likesLabel.topAnchor.constraint(equalTo: self.descriprionLabel.bottomAnchor, constant: 5),
                 self.likesLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
                 self.likesLabel.widthAnchor.constraint(equalToConstant: 100),
                 

@@ -68,6 +68,7 @@ class ProfileHeaderView: UIView {
         super.init(frame: frame)
         self.addSubViews()
         self.addConstraints()
+       
     }
     
     required init?(coder: NSCoder) {
@@ -102,7 +103,7 @@ class ProfileHeaderView: UIView {
     func addConstraints() {
         NSLayoutConstraint.activate([
             
-            avatarImageView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
+            avatarImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
             avatarImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             avatarImageView.widthAnchor.constraint(equalToConstant: 110),
             avatarImageView.heightAnchor.constraint(equalToConstant: 110),
