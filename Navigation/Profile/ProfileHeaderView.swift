@@ -12,7 +12,7 @@ class ProfileHeaderView: UIView {
     
     let avatarImageView: UIImageView = {
         let avatar = UIImageView()
-        let avatarImage = UIImage(named: "HAAL4885.jpeg")
+        let avatarImage = UIImage(named: "Avatar.jpeg")
         avatar.image = avatarImage
         avatar.layer.borderColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
         avatar.layer.borderWidth = 3
@@ -47,6 +47,7 @@ class ProfileHeaderView: UIView {
         statusText.layer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
         statusText.layer.cornerRadius = 12
         statusText.layer.backgroundColor = CGColor(red: 255, green: 255, blue: 255, alpha: 1)
+        statusText.placeholder = "Set your status"
         statusText.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         statusText.translatesAutoresizingMaskIntoConstraints = false
         return statusText

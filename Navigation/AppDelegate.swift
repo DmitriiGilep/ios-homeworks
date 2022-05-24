@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
    
         // создал экземляры 2 viewControllers
         let feedViewController = FeedViewController()
-        let profileViewController = ProfileViewController()
         let loginViewController = LogInViewController()
         
         
@@ -28,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // создал экземпляры navControllers с присвоением при инициализации rootView созданным viewControllers
         let firstNavController = UINavigationController(rootViewController: feedViewController)
-        let secondNavContoller = UINavigationController(rootViewController: profileViewController)
+        let secondNavContoller = UINavigationController(rootViewController: loginViewController)
        
         // nav stacks
         firstNavController.viewControllers = [feedViewController]
