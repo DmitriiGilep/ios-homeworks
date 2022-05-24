@@ -9,19 +9,22 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
-    let logInScrollView: UIScrollView = {
-        let logInScroll = UIScrollView()
+    var logInScrollView: UIScrollView = {
+        var logInScroll = UIScrollView()
+        logInScroll.backgroundColor = .white
+        logInScroll.isScrollEnabled = true
+        logInScroll.showsVerticalScrollIndicator = true
         logInScroll.translatesAutoresizingMaskIntoConstraints = false
         return logInScroll
     }()
     
-    let logInContentView: UIView = {
+    var logInContentView: UIView = {
         let logInView = UIView()
         logInView.backgroundColor = .white
         logInView.translatesAutoresizingMaskIntoConstraints = false
         return logInView
     }()
-        
+    
     let vkImageView: UIImageView = {
         let vk = UIImageView()
         let vkImage = UIImage(named: "logo")
@@ -40,7 +43,7 @@ class LogInViewController: UIViewController {
         loginField.translatesAutoresizingMaskIntoConstraints = false
         return loginField
     }()
-     
+    
     let nameTextField: UITextField = {
         let nameText = UITextField()
         nameText.backgroundColor = .systemGray6
@@ -96,80 +99,66 @@ class LogInViewController: UIViewController {
         navigationController?.pushViewController(profileViewController, animated: true)
     }
     
-    // Устанавливает все вью
-    func setAllViews() {
-
+    func addAllViews() {
+        
         self.view.addSubview(logInScrollView)
-        [
-            logInScrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            logInScrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            logInScrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            logInScrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
-        ]
-            .forEach{$0.isActive = true}
-        
-        
         self.logInScrollView.addSubview(logInContentView)
-        [
-            logInContentView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            logInContentView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            logInContentView.heightAnchor.constraint(equalToConstant: 1200)
-            
-        ]
-            .forEach{$0.isActive = true}
-        
         self.logInContentView.addSubview(vkImageView)
-        [
-            vkImageView.centerXAnchor.constraint(equalTo: self.logInContentView.centerXAnchor),
-            vkImageView.topAnchor.constraint(equalTo: self.logInContentView.topAnchor, constant: 120),
-            vkImageView.widthAnchor.constraint(equalToConstant: 100),
-            vkImageView.heightAnchor.constraint(equalToConstant: 100)
-        ]
-            .forEach{$0.isActive = true}
-                
         self.logInContentView.addSubview(loginField)
-        [
-            loginField.leadingAnchor.constraint(equalTo: self.logInContentView.leadingAnchor, constant: 16),
-            loginField.trailingAnchor.constraint(equalTo: self.logInContentView.trailingAnchor, constant: -16),
-            loginField.topAnchor.constraint(equalTo: self.vkImageView.bottomAnchor, constant: 120),
-            loginField.heightAnchor.constraint(equalToConstant: 100)
-            
-        ]
-            .forEach{$0.isActive = true}
-
-        self.loginField.addSubview(nameTextField)
-        [
-            nameTextField.leadingAnchor.constraint(equalTo: self.loginField.leadingAnchor),
-            nameTextField.trailingAnchor.constraint(equalTo: self.loginField.trailingAnchor),
-            nameTextField.topAnchor.constraint(equalTo: self.loginField.topAnchor),
-            nameTextField.heightAnchor.constraint(equalToConstant: 50)
-        ]
-            .forEach{$0.isActive = true}
-
-        self.loginField.addSubview(passwordTextField)
-        [
-            passwordTextField.leadingAnchor.constraint(equalTo: self.loginField.leadingAnchor, constant: 10),
- //           passwordTextField.trailingAnchor.constraint(equalTo: self.loginField.trailingAnchor),
-            passwordTextField.bottomAnchor.constraint(equalTo: self.loginField.bottomAnchor),
-            passwordTextField.heightAnchor.constraint(equalToConstant: 50)
-        ]
-            .forEach{$0.isActive = true}
-
-        
         self.logInContentView.addSubview(logInButton)
-        [
-            logInButton.leadingAnchor.constraint(equalTo: self.logInContentView.leadingAnchor, constant: 16),
-            logInButton.trailingAnchor.constraint(equalTo: self.logInContentView.trailingAnchor, constant: -16),
-            logInButton.topAnchor.constraint(equalTo: self.loginField.bottomAnchor, constant: 16),
-            logInButton.heightAnchor.constraint(equalToConstant: 50)
-            
-        ]
-            .forEach{$0.isActive = true}
+        self.loginField.addSubview(nameTextField)
+        self.loginField.addSubview(passwordTextField)
+        
+    }
+    
+    func setAllConstraints() {
+        NSLayoutConstraint.activate(
+            [
+                logInScrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
+                logInScrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+                logInScrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+                logInScrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+                
+                logInContentView.topAnchor.constraint(equalTo: self.logInScrollView.topAnchor),
+                logInContentView.bottomAnchor.constraint(equalTo: self.logInScrollView.bottomAnchor),
+                logInContentView.leadingAnchor.constraint(equalTo: self.logInScrollView.leadingAnchor),
+                logInContentView.trailingAnchor.constraint(equalTo: self.logInScrollView.trailingAnchor),
+                logInContentView.widthAnchor.constraint(equalTo: self.logInScrollView.widthAnchor),
+                logInContentView.heightAnchor.constraint(equalToConstant: 2000),
+                
+                vkImageView.centerXAnchor.constraint(equalTo: self.logInContentView.centerXAnchor),
+                vkImageView.topAnchor.constraint(equalTo: self.logInContentView.topAnchor, constant: 120),
+                vkImageView.widthAnchor.constraint(equalToConstant: 100),
+                vkImageView.heightAnchor.constraint(equalToConstant: 100),
+                
+                loginField.leadingAnchor.constraint(equalTo: self.logInContentView.leadingAnchor, constant: 16),
+                loginField.trailingAnchor.constraint(equalTo: self.logInContentView.trailingAnchor, constant: -16),
+                loginField.topAnchor.constraint(equalTo: self.vkImageView.bottomAnchor, constant: 120),
+                loginField.heightAnchor.constraint(equalToConstant: 100),
+                
+                nameTextField.leadingAnchor.constraint(equalTo: self.loginField.leadingAnchor),
+                nameTextField.trailingAnchor.constraint(equalTo: self.loginField.trailingAnchor),
+                nameTextField.topAnchor.constraint(equalTo: self.loginField.topAnchor),
+                nameTextField.heightAnchor.constraint(equalToConstant: 50),
+                
+                passwordTextField.leadingAnchor.constraint(equalTo: self.loginField.leadingAnchor, constant: 10),
+                //           passwordTextField.trailingAnchor.constraint(equalTo: self.loginField.trailingAnchor),
+                passwordTextField.bottomAnchor.constraint(equalTo: self.loginField.bottomAnchor),
+                passwordTextField.heightAnchor.constraint(equalToConstant: 50),
+                
+                logInButton.leadingAnchor.constraint(equalTo: self.logInContentView.leadingAnchor, constant: 16),
+                logInButton.trailingAnchor.constraint(equalTo: self.logInContentView.trailingAnchor, constant: -16),
+                logInButton.topAnchor.constraint(equalTo: self.loginField.bottomAnchor, constant: 16),
+                logInButton.heightAnchor.constraint(equalToConstant: 50),
+                
+            ]
+        )
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        setAllViews()
+        addAllViews()
+        setAllConstraints()
         
         let notificationCentre = NotificationCenter.default
         notificationCentre.addObserver(self, selector: #selector(handleKeyboardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
