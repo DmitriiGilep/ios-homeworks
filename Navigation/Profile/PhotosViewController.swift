@@ -9,8 +9,30 @@ import UIKit
 
 class PhotosViewController: UIViewController {
     
-    var photos = photosData.photosData
-    
+    var photosData: PhotosData = {
+        let photos = PhotosData()
+        photos.createPhotosData(photo: Photos(name: "1"))
+        photos.createPhotosData(photo: Photos(name: "2"))
+        photos.createPhotosData(photo: Photos(name: "3"))
+        photos.createPhotosData(photo: Photos(name: "4"))
+        photos.createPhotosData(photo: Photos(name: "5"))
+        photos.createPhotosData(photo: Photos(name: "6"))
+        photos.createPhotosData(photo: Photos(name: "7"))
+        photos.createPhotosData(photo: Photos(name: "8"))
+        photos.createPhotosData(photo: Photos(name: "9"))
+        photos.createPhotosData(photo: Photos(name: "10"))
+        photos.createPhotosData(photo: Photos(name: "11"))
+        photos.createPhotosData(photo: Photos(name: "12"))
+        photos.createPhotosData(photo: Photos(name: "13"))
+        photos.createPhotosData(photo: Photos(name: "14"))
+        photos.createPhotosData(photo: Photos(name: "15"))
+        photos.createPhotosData(photo: Photos(name: "16"))
+        photos.createPhotosData(photo: Photos(name: "17"))
+        photos.createPhotosData(photo: Photos(name: "18"))
+        photos.createPhotosData(photo: Photos(name: "19"))
+        photos.createPhotosData(photo: Photos(name: "20"))
+        return photos
+    }()
     
     var photosCollectionViewFlowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -65,14 +87,14 @@ class PhotosViewController: UIViewController {
 extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count
+        return photosData.photosData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PhotosCollectionViewCell.self), for: indexPath) as? PhotosCollectionViewCell else {
             return UICollectionViewCell()
         }
-        let data = photos[indexPath.row]
+        let data = photosData.photosData[indexPath.row]
         cell.photo = data
         return cell
     }

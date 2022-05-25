@@ -25,42 +25,6 @@ class PhotosTableViewCell: UITableViewCell {
         arrow.translatesAutoresizingMaskIntoConstraints = false
         return arrow
     }()
- 
-    let image1: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: "1")
-        image.layer.cornerRadius = 6
-        image.contentMode = .scaleAspectFit
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
-
-    let image2: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: "2")
-        image.layer.cornerRadius = 6
-        image.contentMode = .scaleAspectFit
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
-
-    let image3: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: "3")
-        image.layer.cornerRadius = 6
-        image.contentMode = .scaleAspectFit
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
-
-    let image4: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: "4")
-        image.layer.cornerRadius = 6
-        image.contentMode = .scaleAspectFit
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
     
     let imagesStack: UIStackView = {
         let images = UIStackView()
@@ -68,7 +32,6 @@ class PhotosTableViewCell: UITableViewCell {
         images.spacing = 8
         images.distribution = .fillEqually
         images.translatesAutoresizingMaskIntoConstraints = false
-   //     images.distribution = .
         return images
     }()
     
@@ -83,14 +46,30 @@ class PhotosTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setImages(imagesNames: [String]) {
+        var imagesArray = [UIImageView]()
+        for value in imagesNames {
+            
+            let value: UIImageView = {
+                let image = UIImageView()
+                image.image = UIImage(named: value)
+                image.layer.cornerRadius = 6
+                image.contentMode = .scaleAspectFit
+                image.translatesAutoresizingMaskIntoConstraints = false
+                return image
+            }()
+            
+            imagesArray.append(value)
+        }
+        for i in imagesArray {
+            imagesStack.addArrangedSubview(i)
+        }
+    }
+    
     func setUp() {
         
         self.addSubview(photoLabel)
         photoLabel.addSubview(arrow)
-        imagesStack.addArrangedSubview(image1)
-        imagesStack.addArrangedSubview(image2)
-        imagesStack.addArrangedSubview(image3)
-        imagesStack.addArrangedSubview(image4)
         self.addSubview(imagesStack)
         NSLayoutConstraint.activate([
             photoLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 12),
@@ -108,17 +87,6 @@ class PhotosTableViewCell: UITableViewCell {
             imagesStack.heightAnchor.constraint(equalToConstant: 80)
             
         ])
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
     
 }

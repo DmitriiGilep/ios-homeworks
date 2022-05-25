@@ -15,7 +15,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    let photoImageView: UIImageView = {
+    private let photoImageView: UIImageView = {
         let photo = UIImageView()
         photo.translatesAutoresizingMaskIntoConstraints = false
         return photo
@@ -30,7 +30,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setUP() {
+    private func setUP() {
         self.contentView.addSubview(photoImageView)
         NSLayoutConstraint.activate([
             self.photoImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),

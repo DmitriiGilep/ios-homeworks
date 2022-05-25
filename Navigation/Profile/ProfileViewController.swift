@@ -11,6 +11,7 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     var postDataArray = postData.postDataArray
+    var postPhotos = ["1", "2", "3", "4"]
     
     let profileHeaderView: ProfileHeaderView = {
         let profileHeader = ProfileHeaderView()
@@ -66,9 +67,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     // rows quantity
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionNumber = section
-        if sectionNumber == 0 {
-            return 1
-        } else if sectionNumber == 1 {
+        if sectionNumber == 0 || sectionNumber == 1 {
             return 1
         } else if sectionNumber == 2 {
             return (postDataArray.count)
@@ -92,12 +91,17 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                 profileHeaderView.heightAnchor.constraint(equalToConstant: 220)
             ])
             return cell
-        } else if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PhotosTableViewCell.self), for: indexPath) as! PhotosTableViewCell
             
+        } else if indexPath.section == 1 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PhotosTableViewCell.self), for: indexPath) as? PhotosTableViewCell else {return UITableViewCell()}
+            cell.setImages(imagesNames: postPhotos)
             return cell
+            
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PostTableViewCell.self), for: indexPath) as! PostTableViewCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PostTableViewCell.self), for: indexPath) as? PostTableViewCell else {
+                return UITableViewCell()
+            }
+            
             let data = postDataArray[indexPath.row]
             cell.post = data
             return cell
@@ -109,6 +113,5 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             let photosViewController = PhotosViewController()
             navigationController?.pushViewController(photosViewController, animated: true)
         }
-        
     }
 }
