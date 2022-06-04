@@ -27,6 +27,7 @@ class ProfileViewController: UIViewController {
         avatar.layer.borderWidth = 3
         avatar.layer.cornerRadius = 55
         avatar.clipsToBounds = true
+        avatar.contentMode = .scaleAspectFill
         avatar.isUserInteractionEnabled = true
         avatar.translatesAutoresizingMaskIntoConstraints = false
         return avatar
@@ -43,6 +44,18 @@ class ProfileViewController: UIViewController {
     @objc private func avatarChanging (_gesture: UITapGestureRecognizer) {
         
         print("tap works")
+        avatarImageView.layer.cornerRadius = 0
+        avatarImageView.layer.borderWidth = 0
+        avatarImageView.clipsToBounds = false
+        view.addSubview(avatarImageView)
+        avatarImageViewTop = avatarImageView.topAnchor.constraint(equalTo: view.topAnchor)
+        avatarImageViewLeading = avatarImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        avatarImageViewWidth = avatarImageView.widthAnchor.constraint(equalTo: view.widthAnchor)
+        avatarImageViewHeight = avatarImageView.heightAnchor.constraint(equalTo: view.heightAnchor)
+        NSLayoutConstraint.activate([
+            avatarImageViewTop,avatarImageViewLeading, avatarImageViewWidth, avatarImageViewHeight
+        ].compactMap{ $0 })
+        
 //        UIView.animate(withDuration: 3) {
 //            self.backgroundColor = .green
 //        }
@@ -56,15 +69,24 @@ class ProfileViewController: UIViewController {
         return profileTable
     }()
     
+    private var avatarImageViewTop: NSLayoutConstraint?
+    private var avatarImageViewLeading: NSLayoutConstraint?
+    private var avatarImageViewWidth: NSLayoutConstraint?
+    private var avatarImageViewHeight: NSLayoutConstraint?
+
+    
     func setProfileHeaderView() {
         profileHeaderView.addSubview(avatarImageView)
         avatarImageView.addGestureRecognizer(tapOnAvatar)
+       
+        avatarImageViewTop = avatarImageView.topAnchor.constraint(equalTo: profileHeaderView.topAnchor, constant: 16)
+        avatarImageViewLeading = avatarImageView.leadingAnchor.constraint(equalTo: profileHeaderView.leadingAnchor, constant: 16)
+        avatarImageViewWidth = avatarImageView.widthAnchor.constraint(equalToConstant: 110)
+        avatarImageViewHeight = avatarImageView.heightAnchor.constraint(equalToConstant: 110)
+        
         NSLayoutConstraint.activate([
-            avatarImageView.topAnchor.constraint(equalTo: profileHeaderView.topAnchor, constant: 16),
-            avatarImageView.leadingAnchor.constraint(equalTo: profileHeaderView.leadingAnchor, constant: 16),
-            avatarImageView.widthAnchor.constraint(equalToConstant: 110),
-            avatarImageView.heightAnchor.constraint(equalToConstant: 110),
-        ])
+            avatarImageViewTop,avatarImageViewLeading, avatarImageViewWidth, avatarImageViewHeight
+        ].compactMap{ $0 })
     }
     
     func setTable() {

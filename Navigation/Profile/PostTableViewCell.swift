@@ -18,22 +18,6 @@ class PostTableViewCell: UITableViewCell {
             viewsLabel.text = "Views: \(post?.views ?? 0)"
         }
     }
-      
-    lazy var tapOnAvatar2: UITapGestureRecognizer = {
-                let recognizer = UITapGestureRecognizer()
-                recognizer.numberOfTouchesRequired = 1
-                recognizer.numberOfTapsRequired = 1
-                recognizer.addTarget(self, action: #selector(avatarChanging2))
-                return recognizer
-            }()
-    @objc private func avatarChanging2 (_gesture: UITapGestureRecognizer) {
-        
-        print("tap works")
-//        UIView.animate(withDuration: 3) {
-//            self.backgroundColor = .green
-//        }
-        
-    }
     
     let authorLabel: UILabel = {
         let author = UILabel()
@@ -73,7 +57,6 @@ class PostTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setViews()
-        postImage.addGestureRecognizer(tapOnAvatar2)
         self.backgroundColor = .white
     }
     
