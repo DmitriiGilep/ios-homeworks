@@ -32,15 +32,15 @@ class ProfileViewController: UIViewController {
         avatar.translatesAutoresizingMaskIntoConstraints = false
         return avatar
     }()
-
+    
     lazy var tapOnAvatar: UITapGestureRecognizer = {
-                let recognizer = UITapGestureRecognizer()
-                recognizer.numberOfTouchesRequired = 1
-                recognizer.numberOfTapsRequired = 1
-                recognizer.addTarget(self, action: #selector(avatarChanging))
-                return recognizer
-            }()
-
+        let recognizer = UITapGestureRecognizer()
+        recognizer.numberOfTouchesRequired = 1
+        recognizer.numberOfTapsRequired = 1
+        recognizer.addTarget(self, action: #selector(avatarChanging))
+        return recognizer
+    }()
+    
     let transparentView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -49,15 +49,18 @@ class ProfileViewController: UIViewController {
         return view
     }()
     
+    let xButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("x", for: .normal)
+        button.setTitle("X", for: .highlighted)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.addTarget(self, action: #selector(pressXButton), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     @objc private func avatarChanging (_gesture: UITapGestureRecognizer) {
-        
-        print("tap works")
-        
-        avatarImageView.layer.cornerRadius = 0
-        avatarImageView.layer.borderWidth = 0
-        avatarImageView.clipsToBounds = false
-        view.addSubview(transparentView)
-        view.addSubview(avatarImageView)
         
         avatarImageViewCenterX = avatarImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         avatarImageViewCenterY = avatarImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
@@ -68,11 +71,46 @@ class ProfileViewController: UIViewController {
         transparentViewLeading = transparentView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         transparentViewTrailing = transparentView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         
-        NSLayoutConstraint.activate([
-            avatarImageViewCenterX,avatarImageViewCenterY, avatarImageViewWidth, transparentViewTop,transparentViewBottom, transparentViewLeading, transparentViewTrailing
-        ].compactMap{ $0 })
+        xButtonTop = xButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 30)
+        xButtonTrailing = xButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+        xButtonWidth = xButton.widthAnchor.constraint(equalToConstant: 50)
+        xButtonHeight = xButton.heightAnchor.constraint(equalToConstant: 50)
+        
+        self.avatarImageView.layer.cornerRadius = 0
+        self.avatarImageView.layer.borderWidth = 0
+        self.avatarImageView.clipsToBounds = false
         
         UIView.animate(withDuration: 0.5) {
+            self.view.addSubview(self.transparentView)
+            self.view.addSubview(self.avatarImageView)
+            NSLayoutConstraint.activate([
+                self.avatarImageViewCenterX,self.avatarImageViewCenterY, self.avatarImageViewWidth,
+                self.transparentViewTop,self.transparentViewBottom, self.transparentViewLeading, self.transparentViewTrailing
+            ].compactMap{ $0 })
+            self.view.layoutIfNeeded()
+        }
+        
+        UIView.animate(withDuration: 0.3, delay: 0.5, options: .curveEaseIn) {
+            self.view.addSubview(self.xButton)
+            NSLayoutConstraint.activate([
+                self.xButtonTop, self.xButtonTrailing, self.xButtonWidth, self.xButtonHeight
+            ].compactMap{ $0 })
+            self.view.layoutIfNeeded()
+        } completion: { _ in
+            
+        }
+    }
+    
+    @objc private func pressXButton() {
+        
+        UIView.animate(withDuration: 0.5) {
+            self.xButton.removeFromSuperview()
+            self.transparentView.removeFromSuperview()
+            self.avatarImageView.removeFromSuperview()
+            self.avatarImageView.layer.cornerRadius = 55
+            self.avatarImageView.layer.borderWidth = 3
+            self.avatarImageView.clipsToBounds = true
+            self.setProfileHeaderView()
             self.view.layoutIfNeeded()
         }
         
@@ -95,17 +133,15 @@ class ProfileViewController: UIViewController {
     private var transparentViewBottom: NSLayoutConstraint?
     private var transparentViewLeading: NSLayoutConstraint?
     private var transparentViewTrailing: NSLayoutConstraint?
-
-    
-
-
-
-
+    private var xButtonTop: NSLayoutConstraint?
+    private var xButtonTrailing: NSLayoutConstraint?
+    private var xButtonWidth: NSLayoutConstraint?
+    private var xButtonHeight: NSLayoutConstraint?
     
     func setProfileHeaderView() {
         profileHeaderView.addSubview(avatarImageView)
         avatarImageView.addGestureRecognizer(tapOnAvatar)
-       
+        
         avatarImageViewTop = avatarImageView.topAnchor.constraint(equalTo: profileHeaderView.topAnchor, constant: 16)
         avatarImageViewLeading = avatarImageView.leadingAnchor.constraint(equalTo: profileHeaderView.leadingAnchor, constant: 16)
         avatarImageViewWidth = avatarImageView.widthAnchor.constraint(equalToConstant: 110)
@@ -130,7 +166,7 @@ class ProfileViewController: UIViewController {
             profileTableView.topAnchor.constraint(equalTo: self.view.topAnchor),
             profileTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
-
+        
     }
     
     override func viewDidLoad() {
@@ -175,7 +211,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                 profileHeaderView.bottomAnchor.constraint(equalTo: cell.bottomAnchor),
                 profileHeaderView.heightAnchor.constraint(equalToConstant: 220)
             ])
-
+            
             return cell
             
         } else if indexPath.section == 1 {
