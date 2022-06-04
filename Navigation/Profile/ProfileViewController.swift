@@ -72,9 +72,9 @@ class ProfileViewController: UIViewController {
             avatarImageViewCenterX,avatarImageViewCenterY, avatarImageViewWidth, transparentViewTop,transparentViewBottom, transparentViewLeading, transparentViewTrailing
         ].compactMap{ $0 })
         
-//        UIView.animate(withDuration: 3) {
-//            self.backgroundColor = .green
-//        }
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
         
     }
     
