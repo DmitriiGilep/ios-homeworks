@@ -15,10 +15,39 @@ class ProfileViewController: UIViewController {
     
     let profileHeaderView: ProfileHeaderView = {
         let profileHeader = ProfileHeaderView()
-        profileHeader.backgroundColor = .clear
         profileHeader.translatesAutoresizingMaskIntoConstraints = false
         return profileHeader
     }()
+    
+    let avatarImageView: UIImageView = {
+        let avatar = UIImageView()
+        let avatarImage = UIImage(named: "Avatar.jpeg")
+        avatar.image = avatarImage
+        avatar.layer.borderColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
+        avatar.layer.borderWidth = 3
+        avatar.layer.cornerRadius = 55
+        avatar.clipsToBounds = true
+        avatar.isUserInteractionEnabled = true
+        avatar.translatesAutoresizingMaskIntoConstraints = false
+        return avatar
+    }()
+
+    lazy var tapOnAvatar: UITapGestureRecognizer = {
+                let recognizer = UITapGestureRecognizer()
+                recognizer.numberOfTouchesRequired = 1
+                recognizer.numberOfTapsRequired = 1
+                recognizer.addTarget(self, action: #selector(avatarChanging))
+                return recognizer
+            }()
+
+    @objc private func avatarChanging (_gesture: UITapGestureRecognizer) {
+        
+        print("tap works")
+//        UIView.animate(withDuration: 3) {
+//            self.backgroundColor = .green
+//        }
+        
+    }
     
     let profileTableView: UITableView = {
         let profileTable = UITableView()
@@ -27,7 +56,16 @@ class ProfileViewController: UIViewController {
         return profileTable
     }()
     
-    
+    func setProfileHeaderView() {
+        profileHeaderView.addSubview(avatarImageView)
+        avatarImageView.addGestureRecognizer(tapOnAvatar)
+        NSLayoutConstraint.activate([
+            avatarImageView.topAnchor.constraint(equalTo: profileHeaderView.topAnchor, constant: 16),
+            avatarImageView.leadingAnchor.constraint(equalTo: profileHeaderView.leadingAnchor, constant: 16),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 110),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 110),
+        ])
+    }
     
     func setTable() {
         self.profileTableView.delegate = self
@@ -43,20 +81,19 @@ class ProfileViewController: UIViewController {
             profileTableView.topAnchor.constraint(equalTo: self.view.topAnchor),
             profileTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
+
     }
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(profileTableView)
         setTable()
+        setProfileHeaderView()
         profileTableView.rowHeight = UITableView.automaticDimension
         profileTableView.estimatedRowHeight = 310
         
     }
 }
-
 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -75,13 +112,12 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         return sectionNumber
     }
     
-    
     // cell configuration
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProfileHeaderView.self), for: indexPath)
+            
             cell.addSubview(profileHeaderView)
             NSLayoutConstraint.activate([
                 profileHeaderView.leadingAnchor.constraint(equalTo: cell.leadingAnchor),
@@ -90,6 +126,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                 profileHeaderView.bottomAnchor.constraint(equalTo: cell.bottomAnchor),
                 profileHeaderView.heightAnchor.constraint(equalToConstant: 220)
             ])
+
             return cell
             
         } else if indexPath.section == 1 {
