@@ -41,19 +41,35 @@ class ProfileViewController: UIViewController {
                 return recognizer
             }()
 
+    let transparentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.alpha = 0.9
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     @objc private func avatarChanging (_gesture: UITapGestureRecognizer) {
         
         print("tap works")
+        
         avatarImageView.layer.cornerRadius = 0
         avatarImageView.layer.borderWidth = 0
         avatarImageView.clipsToBounds = false
+        view.addSubview(transparentView)
         view.addSubview(avatarImageView)
-        avatarImageViewTop = avatarImageView.topAnchor.constraint(equalTo: view.topAnchor)
-        avatarImageViewLeading = avatarImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        
+        avatarImageViewCenterX = avatarImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        avatarImageViewCenterY = avatarImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         avatarImageViewWidth = avatarImageView.widthAnchor.constraint(equalTo: view.widthAnchor)
-        avatarImageViewHeight = avatarImageView.heightAnchor.constraint(equalTo: view.heightAnchor)
+        
+        transparentViewTop = transparentView.topAnchor.constraint(equalTo: view.topAnchor)
+        transparentViewBottom = transparentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        transparentViewLeading = transparentView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        transparentViewTrailing = transparentView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        
         NSLayoutConstraint.activate([
-            avatarImageViewTop,avatarImageViewLeading, avatarImageViewWidth, avatarImageViewHeight
+            avatarImageViewCenterX,avatarImageViewCenterY, avatarImageViewWidth, transparentViewTop,transparentViewBottom, transparentViewLeading, transparentViewTrailing
         ].compactMap{ $0 })
         
 //        UIView.animate(withDuration: 3) {
@@ -73,6 +89,17 @@ class ProfileViewController: UIViewController {
     private var avatarImageViewLeading: NSLayoutConstraint?
     private var avatarImageViewWidth: NSLayoutConstraint?
     private var avatarImageViewHeight: NSLayoutConstraint?
+    private var avatarImageViewCenterX: NSLayoutConstraint?
+    private var avatarImageViewCenterY: NSLayoutConstraint?
+    private var transparentViewTop: NSLayoutConstraint?
+    private var transparentViewBottom: NSLayoutConstraint?
+    private var transparentViewLeading: NSLayoutConstraint?
+    private var transparentViewTrailing: NSLayoutConstraint?
+
+    
+
+
+
 
     
     func setProfileHeaderView() {
