@@ -9,7 +9,7 @@ import UIKit
 
 class PhotosCollectionViewCell: UICollectionViewCell {
     
-    var photo: Photos? {
+    var photo: Photo? {
         didSet {
             photoImageView.image = UIImage(named: "\(photo?.name ?? "")")
         }

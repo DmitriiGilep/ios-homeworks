@@ -64,7 +64,7 @@ class PostTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setViews() {
+    private func setViews() {
         
         self.addSubview(authorLabel)
         self.addSubview(postImage)

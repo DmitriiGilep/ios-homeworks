@@ -95,11 +95,11 @@ class LogInViewController: UIViewController {
     }()
     
     let profileViewController = ProfileViewController()
-    @objc func pressLogInButton () {
+    @objc private func pressLogInButton () {
         navigationController?.pushViewController(profileViewController, animated: true)
     }
     
-    func addAllViews() {
+    private func addAllViews() {
         
         self.view.addSubview(logInScrollView)
         self.logInScrollView.addSubview(logInContentView)
@@ -111,7 +111,7 @@ class LogInViewController: UIViewController {
         
     }
     
-    func setAllConstraints() {
+    private func setAllConstraints() {
         NSLayoutConstraint.activate(
             [
                 logInScrollView.topAnchor.constraint(equalTo: self.view.topAnchor),

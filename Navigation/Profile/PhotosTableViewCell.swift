@@ -47,26 +47,18 @@ class PhotosTableViewCell: UITableViewCell {
     }
     
     func setImages(imagesNames: [String]) {
-        var imagesArray = [UIImageView]()
-        for value in imagesNames {
-            
-            let value: UIImageView = {
-                let image = UIImageView()
-                image.image = UIImage(named: value)
-                image.layer.cornerRadius = 6
-                image.contentMode = .scaleAspectFit
-                image.translatesAutoresizingMaskIntoConstraints = false
-                return image
-            }()
-            
-            imagesArray.append(value)
-        }
-        for i in imagesArray {
-            imagesStack.addArrangedSubview(i)
-        }
+        
+        imagesNames.forEach({
+            let image = UIImageView()
+            image.image = UIImage(named: $0)
+            image.layer.cornerRadius = 6
+            image.contentMode = .scaleAspectFit
+            image.translatesAutoresizingMaskIntoConstraints = false
+            imagesStack.addArrangedSubview(image)
+        })
     }
     
-    func setUp() {
+        private func setUp() {
         
         self.addSubview(photoLabel)
         photoLabel.addSubview(arrow)

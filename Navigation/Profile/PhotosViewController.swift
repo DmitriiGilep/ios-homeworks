@@ -9,29 +9,29 @@ import UIKit
 
 class PhotosViewController: UIViewController {
     
-    var photosData: PhotosData = {
-        let photos = PhotosData()
-        photos.createPhotosData(photo: Photos(name: "1"))
-        photos.createPhotosData(photo: Photos(name: "2"))
-        photos.createPhotosData(photo: Photos(name: "3"))
-        photos.createPhotosData(photo: Photos(name: "4"))
-        photos.createPhotosData(photo: Photos(name: "5"))
-        photos.createPhotosData(photo: Photos(name: "6"))
-        photos.createPhotosData(photo: Photos(name: "7"))
-        photos.createPhotosData(photo: Photos(name: "8"))
-        photos.createPhotosData(photo: Photos(name: "9"))
-        photos.createPhotosData(photo: Photos(name: "10"))
-        photos.createPhotosData(photo: Photos(name: "11"))
-        photos.createPhotosData(photo: Photos(name: "12"))
-        photos.createPhotosData(photo: Photos(name: "13"))
-        photos.createPhotosData(photo: Photos(name: "14"))
-        photos.createPhotosData(photo: Photos(name: "15"))
-        photos.createPhotosData(photo: Photos(name: "16"))
-        photos.createPhotosData(photo: Photos(name: "17"))
-        photos.createPhotosData(photo: Photos(name: "18"))
-        photos.createPhotosData(photo: Photos(name: "19"))
-        photos.createPhotosData(photo: Photos(name: "20"))
-        return photos
+    var photoData: PhotoData = {
+        let photo = PhotoData()
+        photo.createPhotoData(photo: Photo(name: "1"))
+        photo.createPhotoData(photo: Photo(name: "2"))
+        photo.createPhotoData(photo: Photo(name: "3"))
+        photo.createPhotoData(photo: Photo(name: "4"))
+        photo.createPhotoData(photo: Photo(name: "5"))
+        photo.createPhotoData(photo: Photo(name: "6"))
+        photo.createPhotoData(photo: Photo(name: "7"))
+        photo.createPhotoData(photo: Photo(name: "8"))
+        photo.createPhotoData(photo: Photo(name: "9"))
+        photo.createPhotoData(photo: Photo(name: "10"))
+        photo.createPhotoData(photo: Photo(name: "11"))
+        photo.createPhotoData(photo: Photo(name: "12"))
+        photo.createPhotoData(photo: Photo(name: "13"))
+        photo.createPhotoData(photo: Photo(name: "14"))
+        photo.createPhotoData(photo: Photo(name: "15"))
+        photo.createPhotoData(photo: Photo(name: "16"))
+        photo.createPhotoData(photo: Photo(name: "17"))
+        photo.createPhotoData(photo: Photo(name: "18"))
+        photo.createPhotoData(photo: Photo(name: "19"))
+        photo.createPhotoData(photo: Photo(name: "20"))
+        return photo
     }()
     
     var photosCollectionViewFlowLayout: UICollectionViewFlowLayout = {
@@ -56,7 +56,7 @@ class PhotosViewController: UIViewController {
         return photos
     }()
     
-    func setUP() {
+    private func setUP() {
         self.title = "Photo Gallery"
         self.view.addSubview(photosCollectionView)
         
@@ -69,7 +69,7 @@ class PhotosViewController: UIViewController {
             
         ])
     }
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUP()
@@ -87,14 +87,14 @@ class PhotosViewController: UIViewController {
 extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photosData.photosData.count
+        return photoData.photoData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PhotosCollectionViewCell.self), for: indexPath) as? PhotosCollectionViewCell else {
             return UICollectionViewCell()
         }
-        let data = photosData.photosData[indexPath.row]
+        let data = photoData.photoData[indexPath.row]
         cell.photo = data
         return cell
     }
@@ -103,7 +103,7 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
         let numberOfCellInRow : CGFloat = 3
         let collectionCellWidth: CGFloat = (self.view.frame.size.width - totalPadding) / numberOfCellInRow
         return CGSize(width: collectionCellWidth , height: collectionCellWidth*0.7)
-
+        
     }
     
 }
