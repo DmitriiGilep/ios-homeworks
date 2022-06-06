@@ -11,6 +11,7 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     var postDataArray = postData.postDataArray
+    var postPhotos = ["1", "2", "3", "4"]
     
     let profileHeaderView: ProfileHeaderView = {
         let profileHeader = ProfileHeaderView()
@@ -26,13 +27,14 @@ class ProfileViewController: UIViewController {
         return profileTable
     }()
     
-   
+    
     
     func setTable() {
         self.profileTableView.delegate = self
         self.profileTableView.dataSource = self
-        self.profileTableView.register(UITableViewCell.self, forCellReuseIdentifier: "profileHeaderViewCell")
-        self.profileTableView.register(PostTableViewCell.self, forCellReuseIdentifier: "postTableViewCell")
+        self.profileTableView.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: ProfileHeaderView.self))
+        self.profileTableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: String(describing: PhotosTableViewCell.self))
+        self.profileTableView.register(PostTableViewCell.self, forCellReuseIdentifier: String(describing: PostTableViewCell.self))
         
         NSLayoutConstraint.activate([
             
@@ -42,6 +44,8 @@ class ProfileViewController: UIViewController {
             profileTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
     }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,19 +57,31 @@ class ProfileViewController: UIViewController {
     }
 }
 
+
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
     
     // rows quantity
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (postDataArray.count+1)
+        let sectionNumber = section
+        if sectionNumber == 0 || sectionNumber == 1 {
+            return 1
+        } else if sectionNumber == 2 {
+            return (postDataArray.count)
+        }
+        return sectionNumber
     }
+    
     
     // cell configuration
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "profileHeaderViewCell", for: indexPath)
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProfileHeaderView.self), for: indexPath)
             cell.addSubview(profileHeaderView)
             NSLayoutConstraint.activate([
                 profileHeaderView.leadingAnchor.constraint(equalTo: cell.leadingAnchor),
@@ -76,14 +92,26 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             ])
             return cell
             
-        } else {
+        } else if indexPath.section == 1 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PhotosTableViewCell.self), for: indexPath) as? PhotosTableViewCell else {return UITableViewCell()}
+            cell.setImages(imagesNames: postPhotos)
+            return cell
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: "postTableViewCell", for: indexPath) as! PostTableViewCell
-            let data = postDataArray[indexPath.row-1]
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PostTableViewCell.self), for: indexPath) as? PostTableViewCell else {
+                return UITableViewCell()
+            }
+            
+            let data = postDataArray[indexPath.row]
             cell.post = data
             return cell
         }
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 1 {
+            let photosViewController = PhotosViewController()
+            navigationController?.pushViewController(photosViewController, animated: true)
+        }
+    }
 }

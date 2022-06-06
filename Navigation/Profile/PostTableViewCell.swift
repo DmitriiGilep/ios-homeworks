@@ -8,7 +8,7 @@
 import UIKit
 
 class PostTableViewCell: UITableViewCell {
-   
+    
     var post: PostProtocol? {
         didSet {
             authorLabel.text = post?.author
@@ -18,36 +18,36 @@ class PostTableViewCell: UITableViewCell {
             viewsLabel.text = "Views: \(post?.views ?? 0)"
         }
     }
-    
-    
+        
     let authorLabel: UILabel = {
         let author = UILabel()
         author.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         author.translatesAutoresizingMaskIntoConstraints = false
         return author
     }()
-
+    
     let postImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-
+    
     let descriprionLabel: UILabel = {
         let description = UILabel()
         description.font = UIFont.systemFont(ofSize: 14)
+        //для автозаполнения
         description.numberOfLines = 0
         description.textColor = .gray
         description.translatesAutoresizingMaskIntoConstraints = false
         return description
     }()
-
+    
     let likesLabel: UILabel = {
         let likes = UILabel()
         likes.translatesAutoresizingMaskIntoConstraints = false
         return likes
     }()
-
+    
     let viewsLabel: UILabel = {
         let views = UILabel()
         views.translatesAutoresizingMaskIntoConstraints = false
@@ -59,13 +59,13 @@ class PostTableViewCell: UITableViewCell {
         setViews()
         self.backgroundColor = .white
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     func setViews() {
-
+        
         self.addSubview(authorLabel)
         self.addSubview(postImage)
         self.addSubview(descriprionLabel)
@@ -78,7 +78,7 @@ class PostTableViewCell: UITableViewCell {
                 self.authorLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
                 self.authorLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
                 self.authorLabel.bottomAnchor.constraint(equalTo: self.postImage.topAnchor, constant: -5),
-
+                
                 self.postImage.leadingAnchor.constraint(equalTo: self.leadingAnchor),
                 self.postImage.trailingAnchor.constraint(equalTo: self.trailingAnchor),
                 self.postImage.topAnchor.constraint(equalTo: self.authorLabel.bottomAnchor, constant: 5),
@@ -100,16 +100,6 @@ class PostTableViewCell: UITableViewCell {
                 self.viewsLabel.widthAnchor.constraint(equalToConstant: 100)
             ]
         )
-    }
-   
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
     }
     
 }
