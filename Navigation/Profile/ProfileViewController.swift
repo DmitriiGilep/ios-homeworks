@@ -80,6 +80,9 @@ class ProfileViewController: UIViewController {
     private var xButtonWidth: NSLayoutConstraint?
     private var xButtonHeight: NSLayoutConstraint?
     
+    let avatarAnimation = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut, animations: nil)
+    let xButtonAnimation = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut, animations: nil)
+    
     @objc private func avatarChanging () {
         
 // Анимация при помощи KeyFrames
@@ -115,33 +118,30 @@ class ProfileViewController: UIViewController {
 //
 //        }
 // Анимация при помощи UIViewPropertyAnimator
-        let avatarAnimation = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
+        
+        avatarAnimation.addAnimations {
             self.setAvatarImageViewAndTransparentViewToView()
             self.avatarImageView.layer.cornerRadius = 0
             self.view.layoutIfNeeded()
         }
         
-        let xButtonAnimation = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
+        xButtonAnimation.addAnimations {
             self.setXButtonToView()
             self.view.layoutIfNeeded()
         }
-       
         
         avatarAnimation.startAnimation()
-        
         xButtonAnimation.startAnimation(afterDelay: 0.5)
 
-        
     }
     
     @objc private func pressXButton() {
         
         UIView.animate(withDuration: 0.5) {
-            self.xButton.removeFromSuperview()
-            self.transparentView.removeFromSuperview()
             self.avatarImageView.removeFromSuperview()
+            self.transparentView.removeFromSuperview()
+            self.xButton.removeFromSuperview()
             self.setAvatarImageViewToProfileView()
-            
             self.view.layoutIfNeeded()
             self.setRadius()
         }
