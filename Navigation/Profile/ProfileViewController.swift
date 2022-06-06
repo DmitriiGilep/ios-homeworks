@@ -82,7 +82,7 @@ class ProfileViewController: UIViewController {
     
     @objc private func avatarChanging () {
         
-       
+// Анимация при помощи KeyFrames
 //        UIView.animateKeyframes(withDuration: 5, delay: 0, options: []) {
 //
 //            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 3.0) {
@@ -98,22 +98,40 @@ class ProfileViewController: UIViewController {
 //        } completion: {_ in
 //        }
 
-        
-        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveLinear) {
+// Анимация при помощи UIView.animate
+//        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveLinear) {
+//            self.setAvatarImageViewAndTransparentViewToView()
+//            self.avatarImageView.layer.cornerRadius = 0
+//            self.view.layoutIfNeeded()
+//
+//        } completion: { _ in
+//
+//        }
+//
+//        UIView.animate(withDuration: 0.3, delay: 0.5, options: .curveLinear) {
+//            self.setXButtonToView()
+//            self.view.layoutIfNeeded()
+//        } completion: { _ in
+//
+//        }
+// Анимация при помощи UIViewPropertyAnimator
+        let avatarAnimation = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
             self.setAvatarImageViewAndTransparentViewToView()
             self.avatarImageView.layer.cornerRadius = 0
             self.view.layoutIfNeeded()
-
-        } completion: { _ in
-
         }
         
-        UIView.animate(withDuration: 0.3, delay: 0.5, options: .curveLinear) {
+        let xButtonAnimation = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
             self.setXButtonToView()
             self.view.layoutIfNeeded()
-        } completion: { _ in
-
         }
+       
+        
+        avatarAnimation.startAnimation()
+        
+        xButtonAnimation.startAnimation(afterDelay: 0.5)
+
+        
     }
     
     @objc private func pressXButton() {
@@ -123,6 +141,7 @@ class ProfileViewController: UIViewController {
             self.transparentView.removeFromSuperview()
             self.avatarImageView.removeFromSuperview()
             self.setAvatarImageViewToProfileView()
+            
             self.view.layoutIfNeeded()
             self.setRadius()
         }
@@ -240,13 +259,13 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ProfileHeaderView.self), for: indexPath)
             
-            cell.addSubview(profileHeaderView)
-            
+//надо добавлять не на cell, а на cell.contentView, иначе contentView при первом показе перекрывает view и она неактивна
+            cell.contentView.addSubview(profileHeaderView)
             NSLayoutConstraint.activate([
-                profileHeaderView.leadingAnchor.constraint(equalTo: cell.leadingAnchor),
-                profileHeaderView.trailingAnchor.constraint(equalTo: cell.trailingAnchor),
-                profileHeaderView.topAnchor.constraint(equalTo: cell.topAnchor),
-                profileHeaderView.bottomAnchor.constraint(equalTo: cell.bottomAnchor),
+                profileHeaderView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
+                profileHeaderView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor),
+                profileHeaderView.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
+                profileHeaderView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
                 profileHeaderView.heightAnchor.constraint(equalToConstant: 220)
             ])
             return cell
