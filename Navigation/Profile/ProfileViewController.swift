@@ -208,6 +208,8 @@ class ProfileViewController: UIViewController {
         self.profileTableView.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: ProfileHeaderView.self))
         self.profileTableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: String(describing: PhotosTableViewCell.self))
         self.profileTableView.register(PostTableViewCell.self, forCellReuseIdentifier: String(describing: PostTableViewCell.self))
+        profileTableView.rowHeight = UITableView.automaticDimension
+        profileTableView.estimatedRowHeight = 310
         
         NSLayoutConstraint.activate([
             profileTableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
@@ -224,8 +226,7 @@ class ProfileViewController: UIViewController {
         self.view.addSubview(profileTableView)
         setTable()
         setAvatarImageViewToProfileView()
-        profileTableView.rowHeight = UITableView.automaticDimension
-        profileTableView.estimatedRowHeight = 310
+        // this method maybe create bounds which are consequently used in viewWillAppear by setRadius
         self.view.layoutIfNeeded()
     }
     

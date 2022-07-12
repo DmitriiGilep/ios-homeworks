@@ -24,6 +24,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUP()
+        self.layoutIfNeeded()
     }
     
     required init?(coder: NSCoder) {

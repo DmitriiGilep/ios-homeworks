@@ -123,8 +123,8 @@ class LogInViewController: UIViewController {
                 logInContentView.bottomAnchor.constraint(equalTo: self.logInScrollView.bottomAnchor),
                 logInContentView.leadingAnchor.constraint(equalTo: self.logInScrollView.leadingAnchor),
                 logInContentView.trailingAnchor.constraint(equalTo: self.logInScrollView.trailingAnchor),
-                logInContentView.widthAnchor.constraint(equalTo: self.logInScrollView.widthAnchor),
-                logInContentView.heightAnchor.constraint(equalToConstant: 2000),
+                logInContentView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+                logInContentView.heightAnchor.constraint(equalTo: self.view.heightAnchor),
                 
                 vkImageView.centerXAnchor.constraint(equalTo: self.logInContentView.centerXAnchor),
                 vkImageView.topAnchor.constraint(equalTo: self.logInContentView.topAnchor, constant: 120),
