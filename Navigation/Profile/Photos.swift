@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct Photos {
+struct Photo {
     var name: String
 }
 
-class PhotosData {
+class PhotoData {
     
-    var photosData = [Photos]()
-    func createPhotosData(photo: Photos) {
-        photosData.append(photo)
+    var photoData = [Photo]()
+    func createPhotoData(photo: Photo) {
+        photoData.append(photo)
     }
 }
 

@@ -18,7 +18,7 @@ class PostTableViewCell: UITableViewCell {
             viewsLabel.text = "Views: \(post?.views ?? 0)"
         }
     }
-        
+    
     let authorLabel: UILabel = {
         let author = UILabel()
         author.font = UIFont.systemFont(ofSize: 16, weight: .bold)
@@ -64,7 +64,7 @@ class PostTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setViews() {
+    private func setViews() {
         
         self.addSubview(authorLabel)
         self.addSubview(postImage)
@@ -77,7 +77,7 @@ class PostTableViewCell: UITableViewCell {
                 self.authorLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
                 self.authorLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
                 self.authorLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-                self.authorLabel.bottomAnchor.constraint(equalTo: self.postImage.topAnchor, constant: -5),
+                self.authorLabel.heightAnchor.constraint(equalToConstant: 50),
                 
                 self.postImage.leadingAnchor.constraint(equalTo: self.leadingAnchor),
                 self.postImage.trailingAnchor.constraint(equalTo: self.trailingAnchor),

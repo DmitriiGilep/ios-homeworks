@@ -9,7 +9,7 @@ import UIKit
 
 class PhotosCollectionViewCell: UICollectionViewCell {
     
-    var photo: Photos? {
+    var photo: Photo? {
         didSet {
             photoImageView.image = UIImage(named: "\(photo?.name ?? "")")
         }
@@ -24,6 +24,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUP()
+        self.layoutIfNeeded()
     }
     
     required init?(coder: NSCoder) {
